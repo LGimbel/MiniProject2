@@ -1,21 +1,129 @@
-import com.sun.source.doctree.SystemPropertyTree;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.HashMap;
-
+import java.util.*;
 public class Main {
     static class School {
+        //region stuff
+        public void populateSchool() {
+            student NebulaDreamer = new student(
+                    "Nebula Dreamer",
+                    Arrays.asList("CSC101", "BIO404"),
+                    new HashMap<>() {{
+                        put("CSC101", 87.5);
+                        put("BIO404", 93.8);
+                    }}
+            );
+
+            student QuantumHarmony = new student(
+                    "Quantum Harmony",
+                    Arrays.asList("MAT202", "PHY505", "CHE606"),
+                    new HashMap<>() {{
+                        put("MAT202", 94.3);
+                        put("PHY505", 90.1);
+                        put("CHE606", 92.7);
+                    }}
+            );
+
+
+            student StellarVoyager = new student(
+                    "Stellar Voyager",
+                    Arrays.asList("HIS707", "ENG303"),
+                    new HashMap<>() {{
+                        put("HIS707", 08.5);
+                        put("ENG303", 91.2);
+                    }}
+            );
+
+            student TechnoInnovator = new student(
+                    "Techno Innovator",
+                    Arrays.asList("CSC101", "ENG303"),
+                    new HashMap<>() {{
+                        put("CSC101", 10.0);
+                        put("ENG303", 86.8);
+                    }}
+            );
+            student QuantumSeeker = new student(
+                    "Quantum Seeker",
+                    Arrays.asList("CSC101", "PHY505", "CHE606"),
+                    new HashMap<>() {{
+                        put("CSC101", 92.5);
+                        put("PHY505", 88.2);
+                        put("CHE606", 95.0);
+                    }}
+            );
+
+            student LunaStarlight = new student(
+                    "Luna Starlight",
+                    Arrays.asList("MAT202", "ART808"),
+                    new HashMap<>() {{
+                        put("MAT202", 89.7);
+                        put("ART808", 91.8);
+                    }}
+            );
+
+            student TechInnovator = new student(
+                    "Tech Innovator",
+                    Arrays.asList("CSC101", "ENG303", "SOC101"),
+                    new HashMap<>() {{
+                        put("CSC101", 87.0);
+                        put("ENG303", 94.5);
+                        put("SOC101", 90.3);
+                    }});
+
+
+            student StarryDreamer = new student(
+                    "Starry Dreamer",
+                    Arrays.asList("ART808", "PSY909"),
+                    new HashMap<>() {{
+                        put("ART808", 68.8);
+                        put("PSY909", 92.1);
+                    }}
+            );
+            teacher ThompsonFitzgerald = new teacher("Thompson Fitzgerald", Arrays.asList("CSC101", "MAT202"));
+            teacher MrsJohnson = new teacher("Mrs. Johnson", Arrays.asList("PHY505", "ENG303"));
+            teacher DrDavis = new teacher("Dr. Davis", Arrays.asList("BIO404", "ART808"));
+
+        }
+
+// im sorry I ran out the will to make 14 more also chatgpt made the random names beacause i couldn't come up with anything creative at the time. and each student is just a copy and paste of the first one.
+
+
+
+        //endregion
+
 
         private List<String> changeLog = new ArrayList<>();
         public Map<String, String> TeacherClassCatalog;
         String[] courseCodes = {"CSC101", "MAT202", "ENG303", "BIO404", "PHY505", "CHE606", "HIS707", "ART808", "PSY909", "SOC101"};
+        public student getStudent(){
+            student User = new student(
+                    "User user",
+                    Arrays.asList("PHY505", "CHE606", "HIS707"),
+                    new HashMap<>() {{
+                        put("PHY505", 71.5);
+                        put("CHE606", 97.9);
+                        put("HIS707", 93.2);
+                    }}
+            );
+            return User;
+        }
 
 
+        public void userInterface(Scanner input) {
+            System.out.println("Are you a teacher or a student? T/S");
+            String userType = input.nextLine();
+            if (userType.equalsIgnoreCase("T")) {
+                teacherInitialInterface(input);
+
+            } else if (userType.equalsIgnoreCase("S")) {
+               studentUserInterface(input,getStudent());
+
+            } else {
+                System.out.println("Please try again");
+                userInterface(input);
+
+            }
+        }
         public  void teacherInitialInterface(Scanner input) {
-            input.nextLine();
+//            input.nextLine();
             System.out.println("Please input your name");
             String teacherName = input.nextLine();
             List<String> taughtClasses = new ArrayList<>();
@@ -31,27 +139,35 @@ public class Main {
             teacherUserInterface(input, CurrentUser);
 
         }
+        public void studentUserInterface(Scanner input, student user){
+            System.out.println("Welcome to the student portal. please select the action you wish by entering its corresponding number.\n1: View current grades\n2: view course teacher pairings\n3:Exit");
+            String chosenActionStr = input.nextLine();
+            int chosenAction = Integer.parseInt(chosenActionStr);
+            switch (chosenAction){
+                case 1:
+                    System.out.println("Your current grades are "+ user.getGrades().toString());
+                    studentUserInterface(input, user);
+                    break;
+                case 2:
+                    user.ViewTeachers();
+                    studentUserInterface(input,user);
+                    break;
+                case 3:
+                    System.exit(147);
 
-        public void userInterface(Scanner input) {
-            System.out.println("Are you a teacher or a student? T/S");
-            String userType = input.nextLine();
-            if (userType.toUpperCase().equals("T")) {
-                teacherInitialInterface(input);
-
-            } else if (userType.toUpperCase().equals("S")) {
-                //call student interface
-
-            } else {
-                System.out.println("Please try again");
-                userInterface(input);
-
+                    break;
+                default:
+                    System.out.println("Something went wrong please try again");
+                    studentUserInterface(input, user);
+                    break;
             }
         }
 
         public void teacherUserInterface(Scanner input, teacher CurrentUser) {
-            System.out.println("Welcome to the School management system please choose what you would like to do by picking the corresponding number note the available course codes are "+ courseCodes);
-            System.out.println("1:add a class that you teach\n2: see class roster for a given class code\n3: see a list of students and there grades for a given class code\n4: Filter a class given the class code by current grade\n5: change the grade in a certain class given the class code for a certain student\n6:Get student information based on student name\n7: Switch to student view\n8: Exit program.");
-            int chosenAction = input.nextInt();
+            System.out.println("Welcome to the School management system please choose what you would like to do by picking the corresponding number note the available course codes are\n"+ Arrays.toString(courseCodes));
+            System.out.println("1:add a class that you teach\n2: see class roster for a given class code\n3: see a list of students and there grades for a given class code\n4: Filter a class given the class code by current grade\n5: change the grade in a certain class given the class code for a certain student\n6: Get student information based on student name\n7: Switch to student view\n8: Exit program.");
+            String choice = input.nextLine();
+            int chosenAction = Integer.parseInt(choice);
             switch (chosenAction) {
                 case 1:
                     System.out.println("Please enter the class code that corresponds to the class you would like to add");
@@ -83,8 +199,10 @@ public class Main {
                     String filterCode = input.nextLine();
                     System.out.println("Please input the lower bound of grades that you wish to include in a decimal form. e.g 96.4");
                     double minimum = input.nextDouble();
+                    input.nextLine();
                     System.out.println("Please input the upper bound of grades that you wish to include in a decimal form");
                     double maximum = input.nextDouble();
+                    input.nextLine();
                     System.out.println(CurrentUser.filterClassByGrade(minimum, maximum, filterCode));
                     teacherUserInterface(input, CurrentUser);
 
@@ -98,6 +216,7 @@ public class Main {
                     String changeGradeCode = input.nextLine();
                     System.out.println("Please input the new grade to add");
                     double newGrade = input.nextDouble();
+                    input.nextLine();
                     CurrentUser.changeGrade(changeGradeCode, newGrade, studentName);
                     changeLog.add(CurrentUser.getName() + " changed the grade of " + studentName + " for the class with class code " + changeGradeCode + "to a" + newGrade + "%");
                     teacherUserInterface(input, CurrentUser);
@@ -107,12 +226,13 @@ public class Main {
                     System.out.println("Please input the name of the student that you wish to view information for.");
                     String studentNameInfo = input.nextLine();
                     CurrentUser.getStudentInfo(studentNameInfo);
-                    teacherUserInterface(input, CurrentUser);
                     changeLog.add(CurrentUser.getName() + " viewed information for " + studentNameInfo);
+                    teacherUserInterface(input, CurrentUser);
 
                     break;
 
                 case 7:
+                    int i = 1;
 
                     break;
 
@@ -170,7 +290,14 @@ public class Main {
                 this.grades = newGrades;
             }
 
-            //            }
+            public void ViewTeachers(){
+               List<teacher> teacherList = teacher.teacherCourses;
+               Map<String,List<String>> teacherClassPairing = new HashMap<>();
+               for (teacher teacher : teacherList){
+                   teacherClassPairing.put(teacher.name,teacher.classesTaught);
+               }
+               System.out.println(teacherClassPairing.toString());
+            }
             public static List<student> getAllStudents() {
                 return allStudents;
             }
@@ -192,15 +319,21 @@ public class Main {
         public class teacher {
             public String name;
             public List<String> classesTaught;
+            static List<teacher> teacherCourses = new ArrayList<>();
 
             public teacher(String initialName, List<String> initialClassesTaught) {
                 this.name = initialName;
                 this.classesTaught = initialClassesTaught;
-            }
+                teacherCourses.add(this);
 
+            }
+            //region get and set funcs
             // get funcs
             public String getName() {
                 return name;
+            }
+            public List<teacher> getAllTeachers() {
+                return teacherCourses;
             }
 
             public List<String> getClassesTaught() {
@@ -216,6 +349,7 @@ public class Main {
             public void setClassesTaught(List<String> newClasslist) {
                 this.classesTaught = newClasslist;
             }
+            //endregion
 
             //other func
             public void addClass(String classCode) {
@@ -225,7 +359,7 @@ public class Main {
 
             public List<String> seeClassRoster(String classCode) {
                 List<student> studentCatalog = student.getAllStudents();
-                List<String> studentsInSelectedClass = null;
+                List<String> studentsInSelectedClass = new ArrayList<>();
                 for (student student : studentCatalog) {
                     if (student.classes.contains(classCode)) {
                         studentsInSelectedClass.add(student.name);
@@ -238,7 +372,7 @@ public class Main {
 
             public Map<String, Double> seeClassRosterWithGrades(String classCode) {
                 List<student> studentCatalog = student.getAllStudents();
-                Map<String, Double> studentGrades = null;
+                Map<String, Double> studentGrades = new HashMap<>();
                 for (student student : studentCatalog) {
                     if (student.grades.containsKey(classCode)) {
                         studentGrades.put(student.name, student.grades.get(classCode));
@@ -275,30 +409,35 @@ public class Main {
             public void getStudentInfo(String name) {
                 List<String> studentClasses = new ArrayList<>();
                 Map<String, Double> studentGrades = new HashMap<>();
-                String studentName = "";
+                String studentName = name;
+                int i = 0;
                 for (student student : student.allStudents) {
+                    i++;
                     if (student.getName().equals(name)) {
                         studentClasses = student.getClasses();
                         studentGrades = student.getGrades();
                         studentName = student.getName();
+
                         break;
-                    } else {
-                        System.out.println("It appears that the student that you requested is not in the system please try again");
-                    }
-
-
+                    } }
+                if (i>student.allStudents.size()){
+                    System.out.println("It appears that the student that you requested is not in the system please try again");
                 }
-                System.out.println(studentName + " is in " + studentClasses + " and their grades are " + studentGrades + ".");
+                else {
+                    System.out.println(studentName + " is in " + studentClasses + " and their grades are " + studentGrades + ".");
             }
         }
-
-        public static void main(String[] args) {
-            Scanner input = new Scanner(System.in);
+        }
+        }
+public static void main(String[] args) {
+    Scanner input = new Scanner(System.in);
             School school = new School();
+            school.populateSchool();
             school.userInterface(input);
+
         }
 
-    }
+
 }
 
 
