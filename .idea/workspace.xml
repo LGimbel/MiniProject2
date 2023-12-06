@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d0724090-ead9-4ed5-8cea-cfda7b9e1cd6" name="Changes" comment="mostly complete missing student ui and a few student funcions">
+    <list default="true" id="d0724090-ead9-4ed5-8cea-cfda7b9e1cd6" name="Changes" comment="teacher ui tested student ui still to be made">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
@@ -61,11 +61,20 @@
       <option name="project" value="LOCAL" />
       <updated>1701819101430</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="teacher ui tested student ui still to be made">
+      <option name="closed" value="true" />
+      <created>1701823863036</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1701823863036</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="mostly complete missing student ui and a few student funcions" />
-    <option name="LAST_COMMIT_MESSAGE" value="mostly complete missing student ui and a few student funcions" />
+    <MESSAGE value="teacher ui tested student ui still to be made" />
+    <option name="LAST_COMMIT_MESSAGE" value="teacher ui tested student ui still to be made" />
   </component>
 </project>
